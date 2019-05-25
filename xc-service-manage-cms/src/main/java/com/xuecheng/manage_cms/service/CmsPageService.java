@@ -6,6 +6,7 @@ import com.xuecheng.framework.domain.cms.response.CmsPageResult;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
+import com.xuecheng.framework.model.response.ResponseResult;
 import com.xuecheng.manage_cms.dao.CmsRepository;
 import io.netty.util.internal.StringUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -102,5 +103,14 @@ public class CmsPageService {
             }
         }
         return new CmsPageResult(CommonCode.FAIL, null);
+    }
+
+    public ResponseResult deleteById(String id) {
+        Optional<CmsPage> op = cmsRepository.findById(id);
+        if (op.isPresent()) {
+            cmsRepository.deleteById(id);
+            return new ResponseResult(CommonCode.SUCCESS);
+        }
+        return new ResponseResult(CommonCode.FAIL);
     }
 }

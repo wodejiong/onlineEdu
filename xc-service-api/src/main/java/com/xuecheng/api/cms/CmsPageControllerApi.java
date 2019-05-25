@@ -4,10 +4,12 @@ import com.xuecheng.framework.domain.cms.CmsPage;
 import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
 import com.xuecheng.framework.domain.cms.response.CmsPageResult;
 import com.xuecheng.framework.model.response.QueryResponseResult;
+import com.xuecheng.framework.model.response.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.PageRequest;
 
 @Api(value="cms页面管理接口",description="cms页面管理接口，提供页面的增、删、改、查")
 public interface CmsPageControllerApi {
@@ -24,5 +26,6 @@ public interface CmsPageControllerApi {
     @ApiOperation("修改页面")
     public CmsPageResult edit(String id,CmsPage cmsPage);
 
+    public ResponseResult delete(String id);
 
 }
