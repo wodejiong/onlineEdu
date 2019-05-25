@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @EntityScan("com.xuecheng.domain.cms")
 @ComponentScan("com.xuecheng.api")
 @ComponentScan("com.xuecheng.manage_cms")
+@ComponentScan("com.xuecheng.framework")
 public class ManageCmsApplication {
     public static void main(String[] args) {
         SpringApplication.run(ManageCmsApplication.class, args);

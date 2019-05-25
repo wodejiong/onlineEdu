@@ -2,7 +2,10 @@ package com.xuecheng.manage_cms.service;
 
 import com.xuecheng.framework.domain.cms.CmsPage;
 import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
+import com.xuecheng.framework.domain.cms.response.CmsCode;
 import com.xuecheng.framework.domain.cms.response.CmsPageResult;
+import com.xuecheng.framework.exception.CustomException;
+import com.xuecheng.framework.exception.ExceptionCast;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
@@ -63,14 +66,21 @@ public class CmsPageService {
 
     //新增一条记录
     public CmsPageResult add(CmsPage cmsPage) {
+        if (cmsPage == null) {
+            ExceptionCast.castException(CmsCode.CMS_GENERATEHTML_DATAISNULL);
+        }
+
         //查询唯一性
         CmsPage cmsPage1 = cmsRepository.findByPageNameAndSiteIdAndPageWebPath(cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
-        if (cmsPage1 == null) {
-            cmsPage.setPageId(null);
-            CmsPage save = cmsRepository.save(cmsPage);
-            return new CmsPageResult(CommonCode.SUCCESS, save);
+        if (cmsPage1 != null) {
+            ExceptionCast.castException(CmsCode.CMS_ADDPAGE_EXISTSNAME);
         }
-        return new CmsPageResult(CommonCode.FAIL, null);
+
+        cmsPage.setPageId(null);
+        CmsPage save = cmsRepository.save(cmsPage);
+        return new CmsPageResult(CommonCode.SUCCESS, save);
+
+
     }
 
     //根据id进行查询
