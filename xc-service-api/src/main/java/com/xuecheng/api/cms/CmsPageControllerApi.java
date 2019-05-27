@@ -28,4 +28,5 @@ public interface CmsPageControllerApi {
 
     public ResponseResult delete(String id);
 
+
 }
