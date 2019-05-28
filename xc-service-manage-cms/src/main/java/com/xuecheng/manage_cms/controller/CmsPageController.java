@@ -4,6 +4,7 @@ import com.xuecheng.api.cms.CmsPageControllerApi;
 import com.xuecheng.framework.domain.cms.CmsPage;
 import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
 import com.xuecheng.framework.domain.cms.response.CmsPageResult;
+import com.xuecheng.framework.exception.ExceptionCast;
 import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
@@ -66,6 +67,16 @@ public class CmsPageController implements CmsPageControllerApi {
     }
 
 
+    @Override
+    @PostMapping("/postPage/{pageId}")
+    public ResponseResult post(@PathVariable("pageId") String pageId) {
+        CmsPage one = cmsPageService.findOne(pageId);
+        if (one == null) {
+            ExceptionCast.castException(CommonCode.FAIL);
+        }
 
+        ResponseResult responseResult = cmsPageService.postPage(pageId);
 
+        return responseResult;
+    }
 }
