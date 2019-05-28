@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuecheng.manage_course.dao.TeachplanMapper">
+    <resultMap id="teachplanMap" type="com.xuecheng.framework.domain.course.ext.TeachplanNode">
+        <id property="id" column="one_id"></id>
+        <result property="pname" column="one_pname"></result>
+        <collection property="children" ofType="com.xuecheng.framework.domain.course.ext.TeachplanNode">
+            <id property="id" column="two_id"></id>
+            <result property="pname" column="two_pname"></result>
+            <collection property="children" ofType="com.xuecheng.framework.domain.course.ext.TeachplanNode">
+                <id property="id" column="three_id"></id>
+                <result property="pname" column="three_pname"></result>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="findTeachPlanList" parameterType="java.lang.String"
+            resultMap="teachplanMap">
+        select
+        tb1.`id` one_id,
+        tb1.`pname` one_pname,
+        tb2.`id` two_id,
+        tb2.`pname` two_pname,
+        tb3.`id` three_id,
+        tb3.`pname` three_pname
+        from teachplan tb1
+        left join teachplan tb2
+        on tb1.`id`=tb2.`parentid`
+        left join teachplan tb3
+        on tb2.`id`=tb3.`parentid`
+        <where>
+            <if test="_parameter!=null and _parameter!=''">
+                 tb1.`courseid`=#{courseId}
+            </if>
+            and tb1.`parentid`=0
+        </where>
+    </select>
+</mapper>
