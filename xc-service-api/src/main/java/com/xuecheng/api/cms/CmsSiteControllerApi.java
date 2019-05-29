@@ -1,6 +1,8 @@
 package com.xuecheng.api.cms;
 
 import com.xuecheng.framework.domain.cms.CmsSite;
+import com.xuecheng.framework.domain.course.Teachplan;
+import com.xuecheng.framework.model.response.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -10,4 +12,5 @@ import java.util.List;
 public interface CmsSiteControllerApi {
     @ApiOperation("查询站点列表")
     public List<CmsSite> findAll() ;
+
 }
