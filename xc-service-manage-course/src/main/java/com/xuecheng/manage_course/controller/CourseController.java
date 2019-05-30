@@ -37,12 +37,14 @@ public class CourseController implements CourseControllerApi {
     }
 
     @Override
-    public CoursePic queryPic(String courseId) {
+    @GetMapping("/coursepic/query/{courseId}")
+    public CoursePic queryPic(@PathVariable("courseId") String courseId) {
         return coursePicService.queryPic(courseId);
     }
 
     @Override
-    public ResponseResult deletePic(String courseId) {
+    @DeleteMapping("/coursepic/delete")
+    public ResponseResult deletePic(@RequestParam("courseId") String courseId) {
         return coursePicService.deletePic(courseId);
     }
 

@@ -6,6 +6,7 @@ import com.xuecheng.framework.model.response.ResponseResult;
 import com.xuecheng.manage_course.dao.CoursePicRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -37,7 +38,7 @@ public class CoursePicService {
         }
         return null;
     }
-
+    @Transactional
     public ResponseResult deletePic(String courseId) {
         long l = coursePicRespository.deleteByCourseid(courseId);
         if (l >= 1) {
